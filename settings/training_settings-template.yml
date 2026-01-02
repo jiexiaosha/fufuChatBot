@@ -1,0 +1,49 @@
+# 这里你写path也是一样的，如果本地没有模型而是要用huggingface的模型，请前往官网复制模型名字
+# 假如你改了模型，请把输出路径一并改了，不然会覆盖
+model_name: "Qwen/Qwen3-0.6B"
+output_dir: "model/qwen3-0.6B-fufuchat-sft-qlora"
+# 目前仅支持qwen类型的大模型，其余的作者正在做
+template_name: qwen3
+
+# HF官方页面上的qwen8b参数，鬼知道我这破电脑遭不遭得住
+# max_length: 32768
+# 好吧遭不住
+max_length: 4096
+
+# 一般来讲r/α=2就是最佳比例，α为微调时的缩放因子，影响lora更新幅度
+# r为16-32时适合常见任务，64-128时适合复杂任务，但一般来讲该值不是越高越好
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05r
+fp16: True
+
+use_unsloth: True
+train_file: "/workspace/character/evol-character-gpt4.jsonl"
+num_train_epochs: 2
+
+max_grad_norm: 0.3
+weight_decay: 0
+
+# 这里别写类似2e-4的数字，会被识别为字符串
+learning_rate: 0.0002
+lr_scheduler_type: "constant_with_warmup"
+warmup_steps: 100
+
+per_device_train_batch_size: 1
+# 等效于batch_size,每16次迭代更新一次参数，等效于per_device_train_batch_size * gradient_accumulation_steps = 16
+gradient_accumulation_steps: 16
+gradient_checkpointing: True
+
+save_strategy: "steps"
+logging_steps: 100
+save_steps: 100
+save_total_limit: 1
+
+optim: "paged_adamw_32bit"
+seed: 42
+
+report_to: "tensorboard"
+
+disable_tqdm: False
+
+remove_unused_columns: false

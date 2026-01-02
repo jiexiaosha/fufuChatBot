@@ -1,0 +1,47 @@
+# 这里你写path也是一样的
+# 假如你改了模型，请把输出路径一并改了，不然会覆盖
+model_name: "Qwen/Qwen3-4B-Instruct-2507"
+output_dir: "model/qwen3-4b-fufuchat-sft-qlora"
+template_name: qwen3
+
+# HF官方页面上的，鬼知道我这破电脑遭不遭得住
+# max_length: 32768
+# 好吧遭不住
+max_length: 4096
+
+# 一般来讲r/α=2就是最佳比例
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+fp16: True
+
+use_unsloth: False
+train_file: "/workspace/character/evol-character-gpt4.jsonl"
+num_train_epochs: 2
+
+max_grad_norm: 0.3
+weight_decay: 0
+
+# 这里别写类似2e-4的数字，会被识别为字符串
+learning_rate: 0.0002
+lr_scheduler_type: "constant_with_warmup"
+warmup_steps: 100
+
+per_device_train_batch_size: 1
+# 等效于batch_size,每16次迭代更新一次参数，等效于per_device_train_batch_size * gradient_accumulation_steps = 16
+gradient_accumulation_steps: 16
+gradient_checkpointing: True
+
+save_strategy: "steps"
+logging_steps: 100
+save_steps: 100
+save_total_limit: 1
+
+optim: "paged_adamw_32bit"
+seed: 42
+
+report_to: "tensorboard"
+
+disable_tqdm: False
+
+remove_unused_columns: false
