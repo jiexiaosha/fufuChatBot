@@ -42,6 +42,7 @@ ENV/
 # Model & Training Artifacts (DO NOT TRACK)
 # ========================
 # QLoRA / LoRA adapter files
+/unsloth_compiled_cache
 model/
 models/
 output/
