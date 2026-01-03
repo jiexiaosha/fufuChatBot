@@ -1,20 +1,79 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+
+# Python & IDE
+# ========================
 __pycache__/
-unsloth_compiled_cache/
-# Other files and folders
-.settings/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+# Virtual environments
+venv/
+ENV/
+.env
+.venv
 
-/model
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# ========================
+# Model & Training Artifacts (DO NOT TRACK)
+# ========================
+# QLoRA / LoRA adapter files
+model/
+models/
+output/
+outputs/
+checkpoints/
+runs/               # TensorBoard logs
+*.safetensors       # QLoRA/LoRA weights
+*.bin               # PyTorch model binaries
+*.pt
+*.pth
+
+# Tokenizers (usually regenerated or from base model)
+tokenizer.json
+tokenizer_config.json
+special_tokens_map.json
+added_tokens.json
+
+# Training cache & temp files
+.cache/
+data_cache/
+*.h5
+*.onnx
+*.pb
+
+# Logs
+logs/
+*.log
+
+# ========================
+# OS & Misc
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
