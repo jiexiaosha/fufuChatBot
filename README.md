@@ -3,7 +3,7 @@
 ## 写在最开始
 
 本项目的路径引用可能较为混乱，如果无法运行本项目请在issue中提供报错，我会尽快修复     
-gitee不支持免费版用户上传超过100M的文件，请前往蓝奏云下载并替换model路径中的qwen3-4b-fufuchat-sft-qlora文件
+gitee不支持免费版用户上传超过100M的文件，请前往蓝奏云下载以下文件并解压到model路径中，确保文件夹名称为qwen3-4b-fufuchat-sft-qlora
 ```bash
 https://www.ilanzou.com/s/i3gn7MXn
 ```  
