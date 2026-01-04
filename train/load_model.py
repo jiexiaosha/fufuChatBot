@@ -1,6 +1,7 @@
 import datasets
-from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig
+from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, BitsAndBytesConfig
 from loguru import logger
+import torch
 from trl import DPOTrainer, get_kbit_device_map
 from .get_linear_names import get_linear_names
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
