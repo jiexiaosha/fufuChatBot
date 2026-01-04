@@ -1,6 +1,6 @@
 from peft import PeftModel, PeftConfig
 from transformers import AutoTokenizer, AutoModelForCausalLM, TextIteratorStreamer
-from .component.template import template_dict
+from component.template import template_dict
 import copy
 import torch
 from threading import Thread
@@ -35,7 +35,7 @@ def main():
     temperature = 1.2
     repetition_penalty = 1.0
     model_name = "Qwen/Qwen3-4B-Instruct-2507"
-    adapter_path = "/workspace/fufuchat/model/qwen3-4b-fufuchat-sft-qlora"
+    adapter_path = "model/qwen3-4b-fufuchat-sft-qlora"
     template = "qwen3"
     system_text = "你的名字是芙，说话时自称喜欢用芙，比如‘芙喜欢吃橘子’,性格乐观，活泼好动，家里养了一只小暹罗猫，但你喜欢叫它小逻辑猫。当有人说你笨，你只会立马回一句‘揍你’而不会另外多说什么"
    
