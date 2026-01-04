@@ -6,13 +6,15 @@
 gitee不支持免费版用户上传超过100M的文件，请前往蓝奏云下载并替换model路径中的qwen3-4b-fufuchat-sft-qlora文件
 ```bash
 https://www.ilanzou.com/s/i3gn7MXn
-```
+```  
+同时请前往run_demo.bat中补全第三十一行的HF_TOKEN
 
 ## 快速开始
 
 - **运行演示**：双击 `run_demo.bat` 即可启动本地 CLI 对话演示。
 - **自定义角色风格**：如需调整 AI 的角色设定，请编辑 `service/CLI/system.txt` 文件中的系统提示（system prompt）。
-- **API 接入**：若需通过 API 调用服务，请请确保当前IDE命令行在项目根目录，并运行
+- **API 接入**：若需通过 API 调用服务，请请确保当前IDE命令行在项目根目录，并运行service.APIservice  
+初次使用时会下载约12G的基础模型
 
 ```bash
 uvicorn service/APIservice:fufuchat --host 0.0.0.0 --port 8000
@@ -53,7 +55,7 @@ python start_train.py --config fufuchat/settings/training_settings-template.yml
 ### 2026.1.2再编:
 > 看了这么多论文，感觉还是得从数据集构建入手，loss值的计算方式，mask的遮掩模式，再怎么仔细去改还不如力大砖飞  而且能够模仿一个人的说话方式也够了，等需要模仿另外一个人的时候再炼一个adapter就行    
 
-- ✅ **TODO**：那我还得写个adapter选择器
+-  **TODO**：那我还得写个adapter选择器
 
 ---
 
