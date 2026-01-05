@@ -3,6 +3,7 @@ from .load_dataset import load_dataset, data_collator
 from loguru import logger
 from .load_unsloth_model import load_unsloth_model
 from transformers import Trainer
+from .load_model import load_model
 
 def init_components(args, training_args):
 
