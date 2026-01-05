@@ -2,13 +2,17 @@ from component.chat_LoRA_dataset import ChatLoraDataset
 from component.template import template_dict
 from typing import Any, Dict, List
 from loguru import logger
+from component.QQchatdataset import QQchatDataset
 import torch
 
 
 # 本段参考了firefly的一部分代码
 def load_dataset(args, tokenizer):
     template = template_dict[args.template_name]
-    train_dataset = ChatLoraDataset(args.train_file, tokenizer, args.max_length, template)
+    if args.dataset_type == 'chat_lora':
+        train_dataset = ChatLoraDataset(args.train_file, tokenizer, args.max_length, template)
+    elif args.dataset_type == 'qqchat':
+        train_dataset = QQchatDataset(args.train_file, tokenizer, args.max_length, template)
     return train_dataset
 
 class data_collator(object):

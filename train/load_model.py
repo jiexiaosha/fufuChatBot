@@ -8,9 +8,16 @@ from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 
 def load_model(args, training_args):
 
+    quantization_config = BitsAndBytesConfig(
+        load_in_4bit = True,
+        bnb_4bit_compute_dtypr = torch.float16,
+        bnb_4bit_use_double_quant = True,
+        bnb_4bit_quant_type = "nf4",
+        )
+
     model_kwargs = dict(
         trust_remote_code = True,
-        torch_dtype = torch.dtype,
+        dtype = torch.float16,
         use_cache = False,
         device_map = get_kbit_device_map(),
         quantization_config = quantization_config,
@@ -18,15 +25,8 @@ def load_model(args, training_args):
     
     model = AutoModelForCausalLM.from_pretrained(args.model_name, **model_kwargs)
 
-    logger.info(f'正在加载基底模型：{model.model_type}')
+    logger.info(f'正在加载基底模型：{model.config.model_type}')
     logger.info(f'以qlora模式训练模型')
-
-    quantization_config = BitsAndBytesConfig(
-        load_in_4bit = True,
-        bnb_4bit_compute_dtypr = torch.float16,
-        bnb_4bit_use_double_quant = True,
-        bnb_4bit_quant_type = "nf4",
-        )
 
     model = prepare_model_for_kbit_training(model, use_gradient_checkpointing = True)
 
@@ -35,7 +35,7 @@ def load_model(args, training_args):
         r = args.lora_rank,
         lora_alpha = args.lora_alpha,
         target_modules = target_modules,
-        lora_dropout = training_args.lora_dropout,
+        lora_dropout = args.lora_dropout,
         bias = "none",
         task_type="CAUSAL_LM"
     )
@@ -49,7 +49,8 @@ def load_model(args, training_args):
 
     return{
         'model':model,
-        'peft_config':peft_config
+        'peft_config':peft_config,
+        'ref_model':None
     }
     
 def load_tokenizer(args):

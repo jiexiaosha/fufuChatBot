@@ -26,7 +26,7 @@ class ChatLoraDataset(Dataset):
 
     def __getitem__(self, idx):
 
-        # todo: 这里有个问题，数据集基本都是json格式，json.loads会报错，因为json.loads只能处理字符串
+        
         data = self.data_list[idx]
         data = json.loads(data)
         input_ids, target_msk = [],[]

@@ -4,6 +4,7 @@ model_name: "Qwen/Qwen3-4B-Instruct-2507"
 output_dir: "model/qwen3-4b-fufuchat-sft-qlora"
 template_name: qwen3
 
+dataset_type: qqchat
 # HF官方页面上的，鬼知道我这破电脑遭不遭得住
 # max_length: 32768
 # 好吧遭不住
@@ -15,15 +16,15 @@ lora_alpha: 32
 lora_dropout: 0.05
 fp16: True
 
-use_unsloth: False
-train_file: "/workspace/character/evol-character-gpt4.jsonl"
-num_train_epochs: 2
+use_unsloth: True
+train_file: "/workspace/dataset.jsonl"
+num_train_epochs: 5
 
 max_grad_norm: 0.3
 weight_decay: 0
 
 # 这里别写类似2e-4的数字，会被识别为字符串
-learning_rate: 0.0002
+learning_rate: 0.0004
 lr_scheduler_type: "constant_with_warmup"
 warmup_steps: 100
 
