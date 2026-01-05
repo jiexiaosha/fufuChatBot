@@ -12,7 +12,6 @@ class QQchatDataset(Dataset):
         self.user_format = template.user_format
         self.assistant_format = template.assistant_format
         self.system = template.system
-        self.max_length = max_length
         logger.info(f'正在加载数据集{file}')
 
         with open(file, 'r', encoding='utf8') as f:
@@ -44,22 +43,29 @@ class QQchatDataset(Dataset):
         
         conversations = data.get('conversations', [])
 
-        for i in range(0, len(conversations), 2):
-            user_msg = conversations[i]
-            assistant_msg = conversations[i + 1]
-    
-            human = user_msg["content"].strip()
-            assistant = assistant_msg["content"].strip()
+        for msg in conversations:
+            role = msg.get("role", "").strip()
+            content = msg.get("content", "").strip()
 
-            human = self.user_format.format(content = human, stop_token = self.tokenizer.eos_token)
+            
+            if not content:
+                continue
 
-            assistant = self.assistant_format.format(content = assistant, stop_token = self.tokenizer.eos_token)
+            if role == "user":
+                text = self.user_format.format(content=content, stop_token=self.tokenizer.eos_token)
+                tokens = self.tokenizer.encode(text, add_special_tokens=False)
+                input_ids.extend(tokens)
+                target_msk.extend([0] * len(tokens))  # 不计算 loss
 
-            input_tokens = self.tokenizer.encode(human, add_special_tokens = False)
-            output_tokens = self.tokenizer.encode(assistant, add_special_tokens = False)
+            elif role == "assistant":
+                text = self.assistant_format.format(content=content, stop_token=self.tokenizer.eos_token)
+                tokens = self.tokenizer.encode(text, add_special_tokens=False)
+                input_ids.extend(tokens)
+                target_msk.extend([1] * len(tokens))  # 计算 loss
 
-            input_ids += input_tokens + output_tokens
-            target_msk += [0] * len(input_tokens) + [1] * len(output_tokens)
+            else:
+            # 忽略未知 role（如 system 在对话中重复出现）
+                continue
 
         assert len(input_ids) == len(target_msk)
         input_ids = input_ids[:self.max_length]

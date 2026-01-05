@@ -27,7 +27,7 @@ venv/
 ENV/
 .env
 .venv
-
+settings/.yml
 # IDE
 .vscode/
 .idea/
