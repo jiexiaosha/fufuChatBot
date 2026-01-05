@@ -2,8 +2,8 @@ import json
 from loguru import logger
 from torch.utils.data import Dataset
 
-# 其实是QLoRA，但我懒得改了
-class ChatLoraDataset(Dataset):
+
+class QQchatDataset(Dataset):
     def __init__(self, file, tokenizer, max_length, template):
         self.tokenizer = tokenizer
         self.max_length = max_length
@@ -42,22 +42,17 @@ class ChatLoraDataset(Dataset):
             input_ids = self.tokenizer.encode(system_text, add_special_tokens=False)
             target_msk = [0] * len(input_ids)
         
-        conversations = data['conversations']
+        conversations = data.get('conversations', [])
 
-        if len(conversations) % 2 != 0:
-            conversations = conversations[:-1]
-
-        # 因为是个对话，一定记得检查数据集conversation内容为偶数条
-        for i, conv in enumerate(conversations):
-
-            # if len(conversations) % 2 != 0:
-            #     continue
-
-            human = conv['user'].strip()
-            assistant = conv['assistant'].strip()
+        for i in range(0, len(conversations), 2):
+            user_msg = conversations[i]
+            assistant_msg = conversations[i + 1]
+    
+            human = user_msg["content"].strip()
+            assistant = assistant_msg["content"].strip()
 
             human = self.user_format.format(content = human, stop_token = self.tokenizer.eos_token)
-            # 犹豫再三还是把这个eostoken给加上了，反正可能会有其他模板，到时候也不用多改一个
+
             assistant = self.assistant_format.format(content = assistant, stop_token = self.tokenizer.eos_token)
 
             input_tokens = self.tokenizer.encode(human, add_special_tokens = False)
