@@ -11,3 +11,4 @@ class CustomSettings():
     lora_alpha: int = field(default=32, metadata={"help": "lora alpha"})
     lora_dropout: float = field(default=0.05, metadata={"help": "lora dropout"})
     use_unsloth: bool = field(default=False, metadata={"help": "use sloth or not"})
+    dataset_type: str = field(default="chat_lora", metadata={"help": "dataset type"})
