@@ -1,0 +1,16 @@
+# minimal requirements (example)
+python>=3.10
+torch
+transformers
+accelerate
+safetensors
+peft
+datasets
+sentencepiece
+huggingface-hub
+uvicorn
+fastapi
+pydantic
+pytest
+pytest-mock
+bitsandbytes
