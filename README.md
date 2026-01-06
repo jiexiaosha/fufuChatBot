@@ -57,6 +57,8 @@ python start_train.py --config fufuchat/settings/training_settings-template.yml
 
 -  **TODO**：那我还得写个adapter选择器
 
+### 2026.1.5:
+- 行不通，一是很多人聊天的时候喜欢把一段完整的话分成好几段发出去，要想拼合有难度，原样使用就注定训练集质量不高，二是群聊太混乱了，聊游戏那得先有游戏的背景知识，聊音乐那也得有音乐的背景知识
 ---
 
 觉得这个项目有意思的人可以给我加一个小星星✨吗，秋梨膏
