@@ -31,7 +31,7 @@ python start_train.py --config fufuchat/settings/training_settings-template.yml
 
 ### 支持的数据集格式
 
-当前仅支持如下 JSON 格式：
+当前支持如下 JSON 格式：
 
 ```json
 {
@@ -41,9 +41,19 @@ python start_train.py --config fufuchat/settings/training_settings-template.yml
     {"user": "今天过得怎么样？", "assistant": "还不错，谢谢关心！"}
   ]
 }
+```  
+或者OPENAI格式
+```json
+{
+  "system": "",
+  "conversations": [
+    {"role": "user", "acontent": "今天过得怎么样？"},
+    {"role": "assistant", "content": "还不错，谢谢关心！"}
+  ]
+}
 ```
 
-> 💡 数据集目前来源于 Hugging Face，但由于角色同质化严重，现有模型的对话表现尚不理想。高质量、多样化的角色数据正在构建中，到时候会跟 **FuFuChat-v2**一起放出来
+> 💡 数据集目前来源于 Hugging Face，但由于角色同质化严重，现有模型的对话表现尚不理想。高质量、多样化的角色数据正在构建中
 
 ---
 
@@ -61,4 +71,4 @@ python start_train.py --config fufuchat/settings/training_settings-template.yml
 - 行不通，一是很多人聊天的时候喜欢把一段完整的话分成好几段发出去，要想拼合有难度，原样使用就注定训练集质量不高，二是群聊太混乱了，聊游戏那得先有游戏的背景知识，聊音乐那也得有音乐的背景知识
 ---
 
-觉得这个项目有意思的人可以给我加一个小星星✨吗，秋梨膏
+觉得这个项目有意思的人不妨给一个⭐吧
