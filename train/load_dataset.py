@@ -2,7 +2,7 @@ from component.chat_LoRA_dataset import ChatLoraDataset
 from component.template import template_dict
 from typing import Any, Dict, List
 from loguru import logger
-from component.QQchatdataset import QQchatDataset
+from component.QQ_chat_dataset import QQchatDataset
 import torch
 
 
